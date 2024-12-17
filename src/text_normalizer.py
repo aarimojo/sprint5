@@ -5,9 +5,10 @@ from typing import List, Optional
 
 import nltk
 import spacy
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup as bs
 from nltk.tokenize import word_tokenize
 from nltk.tokenize.toktok import ToktokTokenizer
+from gensim.utils import deaccent
 
 from src.contractions import CONTRACTION_MAP
 
@@ -34,8 +35,8 @@ def remove_html_tags(text: str) -> str:
         str
             Output string.
     """
-    # TODO
-    raise NotImplementedError
+    soup = bs(text, "html.parser")
+    return soup.get_text()
 
 
 def stem_text(text: str) -> str:
@@ -87,8 +88,7 @@ def remove_accented_chars(text: str) -> str:
         str
             Output string.
     """
-    # TODO
-    raise NotImplementedError
+    return deaccent(text)
 
 
 def remove_special_chars(text: str, remove_digits: Optional[bool] = False) -> str:
