@@ -73,7 +73,10 @@ def lemmatize_text(text: str) -> str:
             Output string.
     """
     # TODO
-    raise NotImplementedError
+    doc = nlp(text)
+    lemmas = [token.lemma_ for token in doc if not token.is_punct and not token.is_space]
+    return " ".join(lemmas)
+
 
 
 def remove_accented_chars(text: str) -> str:
